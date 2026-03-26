@@ -15,7 +15,7 @@ Single-file Node.js app (`power.js`) that bridges a Powerley Energy Bridge to Ho
 - The HA entity updated is `sensor.bcydro_demand` (hardcoded in `postToHomeAssistant()`).
 - Two MQTT topics carry demand data: `event/metering/instantaneous_demand` and `_zigbee_metering/event/metering/instantaneous_demand`. Both are handled identically.
 - The `--auth` flag enables MQTT username/password authentication, needed for older Energy Bridge firmwares.
-- Uses `node-fetch` v2 (CommonJS). Do not upgrade to v3 without converting to ESM.
+- Uses Node's built-in `fetch` (requires Node 18+).
 
 ## Development
 
