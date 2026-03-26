@@ -2,16 +2,15 @@
   "name": "energy-bridge-mqtt",
   "version": "1.0.0",
   "description": "A Node.js application for interacting with an Energy Bridge via MQTT.",
-  "main": "index.js",
+  "main": "power.js",
   "scripts": {
-    "start": "node index.js"
+    "start": "node power.js"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
     "dotenv": "^17.3.1",
     "mqtt": "^4.2.8",
-    "node-fetch": "^2.7.0",
     "yargs": "^17.0.1"
   }
 }

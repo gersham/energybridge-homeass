@@ -3,9 +3,6 @@
 require('dotenv').config();
 const mqtt = require('mqtt');
 const yargs = require('yargs');
-const fs = require('fs');
-const path = require('path');
-const fetch = require('node-fetch'); // Import node-fetch
 
 // Parse command-line arguments
 const argv = yargs
@@ -13,10 +10,6 @@ const argv = yargs
     describe: 'IP address of energy bridge',
     demandOption: true,
     default: process.env.ENERGYBRIDGE_IP || '10.1.221.25'
-  })
-  .option('addr', {
-    describe: 'Address to listen on for Prometheus exporter',
-    default: ':9525',
   })
   .option('auth', {
     describe: 'Send authentication information (needed for older firmwares)',
@@ -121,10 +114,12 @@ function postToHomeAssistant(demand, haUrl, haToken) {
 }
 
 
-// Ensuring graceful shutdown on interrupt
-process.on('SIGINT', () => {
+// Graceful shutdown on SIGINT and SIGTERM (systemd sends SIGTERM)
+function shutdown() {
   client.end(() => {
-    console.log("MQTT client disconnected on interrupt.");
+    console.log("MQTT client disconnected.");
     process.exit(0);
   });
-});
+}
+process.on('SIGINT', shutdown);
+process.on('SIGTERM', shutdown);
